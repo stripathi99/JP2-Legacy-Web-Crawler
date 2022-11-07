@@ -13,6 +13,8 @@ import java.time.Clock;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.WRITE;
 import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 
 /**
@@ -58,7 +60,7 @@ final class ProfilerImpl implements Profiler {
   @Override
   public void writeData(Path path) {
     Objects.requireNonNull(path);
-    try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+    try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, WRITE, APPEND)) {
       writeData(writer);
     } catch (IOException ioException) {
       ioException.printStackTrace();
